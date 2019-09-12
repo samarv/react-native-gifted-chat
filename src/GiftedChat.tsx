@@ -42,7 +42,7 @@ import {
 } from './Constant'
 import { IMessage, User, Reply } from './types'
 import QuickReplies from './QuickReplies'
-import stars from '../media/stars.png'
+// import stars from '../media/stars.png'
 
 const GiftedActionSheet = ActionSheet as any
 
@@ -609,6 +609,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       <AnimatedView
         style={{
           height: this.state.messagesContainerHeight,
+          backgroundColor: 'black',
         }}
       >
         <MessageContainer
@@ -798,13 +799,13 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
             ref={(component: any) => (this._actionSheetRef = component)}
           >
             <View style={styles.container} onLayout={this.onMainViewLayout}>
-              <ImageBackground
+              {/* <ImageBackground
                 source={stars}
                 style={{ width: '100%', height: '100%' }}
-              >
-                {this.renderMessages()}
-                {this.renderInputToolbar()}
-              </ImageBackground>
+              > */}
+              {this.renderMessages()}
+              {this.renderInputToolbar()}
+              {/* </ImageBackground> */}
             </View>
           </GiftedActionSheet>
         </SafeAreaView>
@@ -812,12 +813,12 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     }
     return (
       <View style={styles.container} onLayout={this.onInitialLayoutViewLayout}>
-        <ImageBackground
+        {/* <ImageBackground
           source={stars}
           style={{ width: '100%', height: '100%' }}
-        >
-          {this.renderLoading()}
-        </ImageBackground>
+        > */}
+        {this.renderLoading()}
+        {/* </ImageBackground> */}
       </View>
     )
   }

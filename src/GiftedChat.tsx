@@ -8,6 +8,7 @@ import {
   StyleProp,
   ViewStyle,
   SafeAreaView,
+  ImageBackground,
 } from 'react-native'
 
 import ActionSheet from '@expo/react-native-action-sheet'
@@ -41,6 +42,7 @@ import {
 } from './Constant'
 import { IMessage, User, Reply } from './types'
 import QuickReplies from './QuickReplies'
+import stars from '../media/stars.png'
 
 const GiftedActionSheet = ActionSheet as any
 
@@ -50,9 +52,9 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
   /* Input text; default is undefined, but if specified, it will override GiftedChat's internal state */
   text?: string
   /* Controls whether or not the message bubbles appear at the top of the chat */
-  alignTop?: boolean;
+  alignTop?: boolean
   /* enables the scrollToBottom Component */
-  scrollToBottom?: boolean;
+  scrollToBottom?: boolean
   initialText?: string
   /* Placeholder when text is empty; default is 'Type a message...' */
   placeholder?: string
@@ -168,7 +170,10 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
   onQuickReply?(replies: Reply[]): void
   renderQuickReplies?(quickReplies: QuickReplies['props']): React.ReactNode
   renderQuickReplySend?(): React.ReactNode
-  shouldUpdateMessage?(props: Message['props'], nextProps: Message['props']): boolean
+  shouldUpdateMessage?(
+    props: Message['props'],
+    nextProps: Message['props'],
+  ): boolean
 }
 
 export interface GiftedChatState {
@@ -391,10 +396,10 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   }
 
   componentDidUpdate(prevProps: GiftedChatProps<TMessage> = {}) {
-    if(this.props !== prevProps) {
-    const { messages, text } = this.props
-    this.setMessages(messages || [])
-    this.setTextFromProp(text)
+    if (this.props !== prevProps) {
+      const { messages, text } = this.props
+      this.setMessages(messages || [])
+      this.setTextFromProp(text)
     }
   }
 
@@ -793,8 +798,13 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
             ref={(component: any) => (this._actionSheetRef = component)}
           >
             <View style={styles.container} onLayout={this.onMainViewLayout}>
-              {this.renderMessages()}
-              {this.renderInputToolbar()}
+              <ImageBackground
+                source={stars}
+                style={{ width: '100%', height: '100%' }}
+              >
+                {this.renderMessages()}
+                {this.renderInputToolbar()}
+              </ImageBackground>
             </View>
           </GiftedActionSheet>
         </SafeAreaView>
@@ -802,7 +812,12 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     }
     return (
       <View style={styles.container} onLayout={this.onInitialLayoutViewLayout}>
-        {this.renderLoading()}
+        <ImageBackground
+          source={stars}
+          style={{ width: '100%', height: '100%' }}
+        >
+          {this.renderLoading()}
+        </ImageBackground>
       </View>
     )
   }
